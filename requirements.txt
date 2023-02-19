@@ -1,3 +1,4 @@
+setuptools
 dill
 dnspython
 fastapi
@@ -18,4 +19,4 @@ PyYAML
 numpy
 scikit-learn
 apache-airflow
--e
+#-e .
