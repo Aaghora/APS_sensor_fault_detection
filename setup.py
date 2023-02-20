@@ -1,13 +1,13 @@
-from setuptools import setup,find_packages
+from setuptools import setup, find_packages
 from typing import List
 
-#Declaring variables for setup functions
-PROJECT_NAME="sensor"
-VERSION="0.0.1"
-AUTHOR="Kiran_Deo_Yadav"
-DESRCIPTION="This is a APS sensor Machine Learning Project"
+# Declaring variables for setup functions
+PROJECT_NAME = "sensor"
+VERSION = "0.0.1"
+AUTHOR = "Kiran_Deo_Yadav"
+DESCRIPTION = "This is a APS sensor Machine Learning Project"
 
-REQUIREMENT_FILE_NAME="requirements.txt"
+REQUIREMENT_FILE_NAME = "requirements.txt"
 
 HYPHEN_E_DOT = "-e ."
 
@@ -19,6 +19,9 @@ def get_requirements_list() -> List[str]:
     return This function is going to return a list which contain name
     of libraries mentioned in requirements.txt file
     """
+    #with open('requirements.txt', 'r') as f:
+        #required_packages = [line.strip() for line in f if line.strip() and not line.startswith('-e')]
+
     with open(REQUIREMENT_FILE_NAME) as requirement_file:
         requirement_list = requirement_file.readlines()
     requirement_list = [requirement_name.replace("\n", "") for requirement_name in requirement_list]
@@ -27,12 +30,11 @@ def get_requirements_list() -> List[str]:
     return requirement_list
 
 
-
 setup(
-name=PROJECT_NAME,
-version=VERSION,
-author=AUTHOR,
-description=DESRCIPTION,
-packages=find_packages(), 
-install_requires=get_requirements_list()
+    name=PROJECT_NAME,
+    version=VERSION,
+    author=AUTHOR,
+    description=DESCRIPTION,
+    packages=find_packages(),
+    install_requires=get_requirements_list()
 )

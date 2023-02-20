@@ -29,8 +29,8 @@ class ModelEvaluation:
 
     def initiate_model_evaluation(self)->artifact_entity.ModelEvaluationArtifact:
         try:
-            #if saved model folder has model the we will compare 
-            #which model is best trained or the model from saved model folder
+            #If saved model folder has model the we will compare 
+            #Which model is best trained or the model from saved model folder
 
             logging.info("if saved model folder has model the we will compare "
             "which model is best trained or the model from saved model folder")
@@ -66,7 +66,8 @@ class ModelEvaluation:
             test_df = pd.read_csv(self.data_ingestion_artifact.test_file_path)
             target_df = test_df[TARGET_COLUMN]
             y_true =target_encoder.transform(target_df)
-            # accuracy using previous trained model
+            
+            # Accuracy using previous trained model
             
             input_feature_name = list(transformer.feature_names_in_)
             input_arr =transformer.transform(test_df[input_feature_name])
@@ -75,7 +76,7 @@ class ModelEvaluation:
             previous_model_score = f1_score(y_true=y_true, y_pred=y_pred)
             logging.info(f"Accuracy using previous trained model: {previous_model_score}")
            
-            # accuracy using current trained model
+            # Accuracy using current trained model
             input_feature_name = list(current_transformer.feature_names_in_)
             input_arr =current_transformer.transform(test_df[input_feature_name])
             y_pred = current_model.predict(input_arr)
