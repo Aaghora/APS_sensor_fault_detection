@@ -1,5 +1,5 @@
-from sensor.excpetion import SensorException
-from sensor.logging import logging
+from sensor.exception import SensorException
+from sensor.logger import logging
 from sensor.predictor import ModelResolver
 from sensor.utils import load_object
 from datetime import datetime
@@ -37,7 +37,7 @@ def start_batch_prediction(input_file_path):
         df["prediction"]= prediction
         df["cat_prediction"]= cat_prediction
 
-        prediction_file_name= os.path.basename(input_file_path).replace(".csv", f"{datetime.now().strftime('%m%d%Y_%H%M%S')}.csv")
+        prediction_file_name= os.path.basename(input_file_path).replace(".csv", f"{datetime.now().strftime('%m%d%y_%H%M%S')}.csv")
         predict_file_path=os.path.join(PREDICTION_DIR,prediction_file_name)
 
         df.to_csv(predict_file_path, index=False, header=True)
