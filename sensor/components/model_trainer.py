@@ -23,35 +23,32 @@ class ModelTrainer:
         except Exception as e:
             raise SensorException(e, sys)
 
-    def fine_tune(self,x,y):
-    # Define the parameter grid to search over
+    def fine_tune(self, x, y):
         try:
             param_grid = {
-                    'max_depth': [2, 3, 5, 7, 9],
-                    'learning_rate': [0.1, 0.01, 0.001],
-                    'n_estimators': [50, 100, 200],
-                    'min_child_weight': [1, 3, 5],
-                    'subsample': [0.5, 0.8, 1.0],
-                    'colsample_bytree': [0.5, 0.8, 1.0],
-                    'gamma': [0, 0.1, 0.2]
-                    }
-            # Create an XGBoost model
+                'max_depth': [2, 3, 5],
+                'learning_rate': [0.01, 0.001],
+                'n_estimators': [50, 100],
+            }
             xgb_model = XGBClassifier()
-
-            # Create a grid search object
             grid_search = GridSearchCV(
-                    estimator=xgb_model,
-                    param_grid=param_grid,
-                    cv=5,
-                    n_jobs=-1,
-                    verbose=2
-                    )
-
-            # Fit the grid search to the data
-            grid_search.fit(x, y)
+                estimator=xgb_model,
+                param_grid=param_grid,
+                cv=5,
+                n_jobs=1,  # decrease number of parallel jobs
+                verbose=2,
+            )
+            n_samples = len(x)
+            if n_samples > 10000:
+                x_subset = x[:10000]  # use a subset of data if more than 10,000 samples
+                y_subset = y[:10000]
+            else:
+                x_subset = x
+                y_subset = y
+            grid_search.fit(x_subset, y_subset)
             best_params = grid_search.best_params_
+            logging.info(f"Best Tuned Parameters {best_params}")
             return best_params
-
         except Exception as e:
             raise SensorException(e, sys)
     

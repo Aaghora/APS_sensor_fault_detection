@@ -40,13 +40,13 @@ class DataValidationConfig:
     def __init__(self,training_pipeline_config:TrainingPipelineConfig):
         self.data_validation_dir = os.path.join(training_pipeline_config.artifact_dir , "data_validation")
         self.report_file_path=os.path.join(self.data_validation_dir, "report.yaml")
-        self.missing_threshold:float = 0.2
+        self.missing_threshold:float = 0.7
         self.base_file_path = os.path.join("aps_failure_training_set1.csv")
 
 class DataTransformationConfig:
     def __init__(self,training_pipeline_config:TrainingPipelineConfig):
         self.data_transformation_dir = os.path.join(training_pipeline_config.artifact_dir , "data_transformation")
-        self.trform_object_path = os.path.join(self.data_transformation_dir,"transformer",TRANSFORMER_OBJECT_FILE_NAME)
+        self.transform_object_path = os.path.join(self.data_transformation_dir,"transformer",TRANSFORMER_OBJECT_FILE_NAME)
         self.transformed_train_path =  os.path.join(self.data_transformation_dir,"transformed",TRAIN_FILE_NAME.replace("csv","npz"))
         self.transformed_test_path =os.path.join(self.data_transformation_dir,"transformed",TEST_FILE_NAME.replace("csv","npz"))
         self.target_encoder_path = os.path.join(self.data_transformation_dir,"target_encoder",TARGET_ENCODER_OBJECT_FILE_NAME)
@@ -61,6 +61,8 @@ class ModelTrainerConfig:
 class ModelEvaluationConfig:
     def __init__(self,training_pipeline_config:TrainingPipelineConfig):
         self.change_threshold = 0.01
+        self.model_dir_path = None
+
 
 class ModelPusherConfig:
     def __init__(self,training_pipeline_config:TrainingPipelineConfig):
@@ -70,4 +72,4 @@ class ModelPusherConfig:
         self.pusher_model_path = os.path.join(self.pusher_model_dir,MODEL_FILE_NAME)
         self.pusher_transformer_path = os.path.join(self.pusher_model_dir,TRANSFORMER_OBJECT_FILE_NAME)
         self.pusher_target_encoder_path = os.path.join(self.pusher_model_dir,TARGET_ENCODER_OBJECT_FILE_NAME)
-
+        self.transformer_dir_name = "transformers" # set the transformer directory name here

@@ -29,8 +29,8 @@ class ModelEvaluation:
 
     def initiate_model_evaluation(self)->artifact_entity.ModelEvaluationArtifact:
         try:
-            #If saved model folder has model the we will compare 
-            #Which model is best trained or the model from saved model folder
+            #if saved model folder has model the we will compare 
+            #which model is best trained or the model from saved model folder
 
             logging.info("if saved model folder has model the we will compare "
             "which model is best trained or the model from saved model folder")
@@ -66,8 +66,7 @@ class ModelEvaluation:
             test_df = pd.read_csv(self.data_ingestion_artifact.test_file_path)
             target_df = test_df[TARGET_COLUMN]
             y_true =target_encoder.transform(target_df)
-            
-            # Accuracy using previous trained model
+            # accuracy using previous trained model
             
             input_feature_name = list(transformer.feature_names_in_)
             input_arr =transformer.transform(test_df[input_feature_name])
@@ -76,7 +75,7 @@ class ModelEvaluation:
             previous_model_score = f1_score(y_true=y_true, y_pred=y_pred)
             logging.info(f"Accuracy using previous trained model: {previous_model_score}")
            
-            # Accuracy using current trained model
+            # accuracy using current trained model
             input_feature_name = list(current_transformer.feature_names_in_)
             input_arr =current_transformer.transform(test_df[input_feature_name])
             y_pred = current_model.predict(input_arr)
@@ -84,7 +83,8 @@ class ModelEvaluation:
             print(f"Prediction using trained model: {current_target_encoder.inverse_transform(y_pred[:5])}")
             current_model_score = f1_score(y_true=y_true, y_pred=y_pred)
             logging.info(f"Accuracy using current trained model: {current_model_score}")
-            if current_model_score<=previous_model_score:
+            print(f"current model score=  {current_model_score} \n Previous model score {previous_model_score}")
+            if current_model_score<=previous_model_score:        #
                 logging.info(f"Current trained model is not better than previous model")
                 raise Exception("Current trained model is not better than previous model")
 
