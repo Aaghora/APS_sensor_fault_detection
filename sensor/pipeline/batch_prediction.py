@@ -43,3 +43,4 @@ def start_batch_prediction(input_file_path):
         return prediction_file_path
     except Exception as e:
         raise SensorException(e, sys)
+        
