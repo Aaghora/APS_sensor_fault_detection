@@ -2,7 +2,8 @@ import pymongo
 import pandas as pd
 import json
 
-client = pymongo.MongoClient("mongodb://localhost:27017/")
+from sensor.config import mongo_client
+
 Data_File_Path = "/config/workspace/aps_failure_training_set1.csv"
 Data_base_name = "aps"
 collection_name = "sensor"
@@ -17,4 +18,4 @@ if __name__ == "__main__":
     # convert record to json
     print(json_record[0])
     # insert converted json record to mongodb
-    client[Data_base_name][collection_name].insert_many(json_record)
+    mongo_client[DATABASE_NAME][COLLECTION_NAME].insert_many(json_record)
