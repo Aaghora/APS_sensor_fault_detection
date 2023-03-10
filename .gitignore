@@ -7,6 +7,8 @@ __pycache__/
 *.so
 prediction
 saved_models
+artifact
+logs
 
 # Distribution / packaging
 .Python
